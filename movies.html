@@ -6,6 +6,29 @@
 </head>
 <body>
 <h1>Movies</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eos incidunt nisi reprehenderit repudiandae soluta veritatis voluptate? Dolorem esse in magni maxime quos rem, repellat saepe suscipit, ullam unde veritatis.</p>
+<h2 id="movieTitle"></h2>
+<div id="container"></div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+<script src="js/movie-app.js"></script>
+<script>
+    getMovies().then((movies) => {
+        let html = '';
+        movies.forEach((movie) => {
+            let id = movie.id;
+            let title = movie.title;
+            let rating = movie.rating;
+            let movieHTML = "<div>";
+            movieHTML += "<h1>" + title + "</h1>";
+            movieHTML += "</div>";
+            html += movieHTML;
+            console.log(title, id, rating);
+        })
+        $('#container').html(html)
+    })
+
+
+
+</script>
 </body>
 </html>
