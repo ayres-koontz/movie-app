@@ -13,18 +13,12 @@
 <script src="js/movie-app.js"></script>
 <script>
     getMovies().then((movies) => {
-        let html = '';
-        movies.forEach((movie) => {
-            let id = movie.id;
-            let title = movie.title;
-            let rating = movie.rating;
-            let movieHTML = "<div>";
-            movieHTML += "<h1>" + title + "</h1>";
-            movieHTML += "</div>";
-            html += movieHTML;
-            console.log(title, id, rating);
+        let movieHTML = '';
+        movies.forEach(({id, title, rating}) => {
+            movieHTML = `<div><h1>${title}</h1><p>${rating}</p></div>`;
+            $('#container').append(movieHTML)
         })
-        $('#container').html(html)
+
     })
 
 
