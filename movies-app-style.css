@@ -1,3 +1,21 @@
+
+body {
+    color: white;
+    background-color: #2A2B2A;
+}
+
+
 h1 {
+    color: #2A2B2A;
     font-family: "Avenir Next";
+    margin: .2em 0 0 .2em;
+}
+
+p {
+    color: #2A2B2A;
+   margin-left: .7em;
+}
+
+.card-style {
+    margin: 2em 0 2em 0;
 }
