@@ -66,15 +66,38 @@
 <!--Added the card class and buttons for edit and delete.-->
 <!--Will need to sync those actions based off the ids given to each.-->
 <script>
-    getMovies().then((movies) => {
-        let movieHTML = '';
-        movies.forEach(({id, title, rating}) => {
-            movieHTML = `<div class="card card-style"><h1>${title}</h1><p>${rating}</p>
+    //Function to populate the movies on the page:
+    // ** Added a data-index-number that gets its value from
+    //    the movie id so that we can bind it to the delete function.
+
+    function populateMovies() {
+        getMovies().then((movies) => {
+            let movieHTML = '';
+            movies.forEach(({id, title, rating}) => {
+                movieHTML = `<div class="card card-style"><h1>${title}</h1><p>Rating: ${rating}</p>
                         <span><button type="submit" id="submit-edit" class="btn">Edit</button>
-                        <button type="submit" id="submit-delete" class="btn">Delete</button></span></div>`;
-            $('#contain').append(movieHTML)
+                        <button type="submit" data-index-number=${id} id="submit-delete" class="btn">Delete</button></span></div>`;
+                $('#contain').append(movieHTML)
+            })
         })
+    }
+
+    populateMovies();
+
+    //Adding functionality to the Delete button:
+    // *** Because we are adding events to elements that only exist after the promise is returned,
+    //     we have to use EVENT DELEGATION. (https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
+
+    $(document).on("click", "#submit-delete", function () {
+        let movieIndex = $(this).attr("data-index-number");
+        let confirmDelete = confirm(`are you sure you want to delete this movie?`)
+        if (confirmDelete) {
+            deleteMovie(movieIndex);
+            $('#contain').empty();// Empties out the contain div so it can be repopulated
+        }
+        populateMovies(); //repopulates the contain div
     })
+
 </script>
 
 </body>
