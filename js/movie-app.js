@@ -47,6 +47,7 @@ const addMovie = (movie) => fetch(`${url}`, {
 
 
 // Modify a movie -----------------------------------------------------------------
+//input must be an object. Example input: {id: 2, title: "Star Wars: A New Hope", rating: 5}
 const editMovie = movie => fetch(`${url}/${movie.id}`, {
     method: 'PUT',
     headers: {
