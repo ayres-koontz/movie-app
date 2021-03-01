@@ -122,6 +122,14 @@
         }
     })
 
+//-------------------------------------------------------------------------------------------------
+    // Adding functionality to the create move form:
+    $("#submit-new").click(function (e){
+        e.preventDefault();
+        let movieName = $('#new-movie').val();
+        console.log(movieName);
+        let movieRating = $("#new-rating").val();
+    })
 </script>
 
 </body>
