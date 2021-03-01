@@ -15,18 +15,22 @@
 
 <body>
 
+
+<div id="loading">
+    <img id="loading-image" src="gif/371%20(1).gif" alt="Loading..." />
+</div>
+
 <header>
 
     <h2>Movies</h2>
 
 </header>
 
+
+
 <!--Added this container class from bootstrap to pull away from the edges.-->
 <!--Also, to not get above mixed up with the same id, I changed the id to 'contain'-->
 <section class="container">
-
-    <!--    I tried looking - what is below for? I commented it out for now-->
-    <!--<h2 id="movieTitle"></h2>-->
 
     <div id="contain"></div>
 
@@ -53,6 +57,7 @@
     </form>
 </section>
 
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
@@ -65,7 +70,17 @@
 
 <!--Added the card class and buttons for edit and delete.-->
 <!--Will need to sync those actions based off the ids given to each.-->
+
 <script>
+    $('#contain').ready(function() {
+        $('#loading').hide();
+    });
+</script>
+
+
+<script>
+
+
     //---------------------------------------------------------------------------------------------
     //Function to populate the movies on the page:
     // ** Added a data-index-number that gets its value from
@@ -129,7 +144,14 @@
         let movieName = $('#new-movie').val();
         console.log(movieName);
         let movieRating = $("#new-rating").val();
+        console.log(movieRating);
+        let addedMovie = {title: movieName, rating: movieRating};
+        addMovie(addedMovie).then(() => {
+            $('#contain').empty();
+            populateMovies();
+        });
     })
+
 </script>
 
 </body>
