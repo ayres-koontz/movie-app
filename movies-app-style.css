@@ -1,19 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Raleway&display=swap');
 
 body {
     color: white;
-    background-color: #2A2B2A;
+    background-color: #29362F;
 }
 
 
 h1 {
     color: #2A2B2A;
-    font-family: "Avenir Next";
+    font-family: 'Raleway', sans-serif;
     margin: .2em 0 0 .2em;
 }
 
 p {
+    font-family: 'Raleway', sans-serif;
     color: #2A2B2A;
-   margin-left: .7em;
+    margin-left: .7em;
 }
 
 .card-style {
@@ -22,6 +24,43 @@ p {
 
 #submit-new {
     color: white;
+}
+
+.title-style {
+    font-family: 'Cinzel Decorative', cursive;;
+    color: #CAC0C1;
+    font-size: 5.5em;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.brand-img {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+    height: 350px;
+    margin-bottom: 100px;
+}
+
+.branding {
+    position: relative;
+    color: white;
+    height: 400px;
+    overflow: hidden;
+}
+
+.btn-style {
+    background-color: #884004;
+    font-family: 'Raleway', sans-serif;
+    color: #CAC0C1;
 }
 
 #loading {
