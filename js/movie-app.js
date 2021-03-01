@@ -3,33 +3,21 @@
 const url = 'https://pickle-dog-freeze.glitch.me/movies'
 
 // Get all movies -------------------------------------------------
+
 const getMovies = () => fetch(url)
     .then(res => res.json())
-    // .then(data => {
-    //     return data;
-    // })
-
-// Functionality Test:
-// getMovies()
-//     .then(console.log)
-//     .catch(console.error);
-
 
 
 // Get a movie -------------------------------------------------------------------
+
 const getMovie = id => fetch(`${url}/${id}`)
     .then(res => res.json())
     .catch(console.error);
 
-// Functionality Test:
-// getMovie()
-//     .then(console.log)
-//     .catch(console.error);
-
-
 
 // Create a movie ----------------------------------------------------------------
 // Input must be an object***
+
 const addMovie = (movie) => fetch(`${url}`, {
     method: 'POST',
     headers: {
@@ -45,9 +33,9 @@ const addMovie = (movie) => fetch(`${url}`, {
     .catch(console.error);
 
 
-
 // Modify a movie -----------------------------------------------------------------
 //input must be an object. Example input: {id: 2, title: "Star Wars: A New Hope", rating: 5}
+
 const editMovie = movie => fetch(`${url}/${movie.id}`, {
     method: 'PUT',
     headers: {
@@ -60,7 +48,6 @@ const editMovie = movie => fetch(`${url}/${movie.id}`, {
         console.log(`Success: edited ${JSON.stringify(data)}`);
     })
     .catch(console.error);
-
 
 
 // Delete a movie -------------------------------------------------------------------
@@ -76,7 +63,6 @@ const deleteMovie = id => fetch(`${url}/${id}`, {
         console.log(`Success: deleted ${id}`);
     })
     .catch(console.error);
-
 
 
 //----------------------------------------------------------------

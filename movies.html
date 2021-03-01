@@ -15,28 +15,31 @@
 
 <body>
 
-
 <div id="loading">
-    <img id="loading-image" src="gif/371%20(1).gif" alt="Loading..." />
+    <img id="loading-image" src="gif/371%20(1).gif" alt="Loading..."/>
 </div>
 
-<header>
+<header class="container">
 
-    <h2>Movies</h2>
+    <div class="brand-img">
+        <div class="branding">
+            <img src="img/pexels-adrien-olichon-3709370.jpg" alt="Movie Theater">
+        </div>
+        <div>
+            <h2 class="title-style">Cinema Critic</h2>
+        </div>
+    </div>
 
 </header>
 
-
-
-<!--Added this container class from bootstrap to pull away from the edges.-->
-<!--Also, to not get above mixed up with the same id, I changed the id to 'contain'-->
 <section class="container">
 
     <div id="contain"></div>
 
 </section>
-<!--Added form below-->
+
 <section id="addForm" class="container" style="display: none">
+
     <form>
         <div class="form-group">
             <label for="new-movie">Add New Movie</label>
@@ -53,8 +56,9 @@
                 <option>1</option>
             </select>
         </div>
-        <button type="submit" id="submit-new" class="btn">Submit</button>
+        <button type="submit" id="submit-new" class="btn btn-style">Submit</button>
     </form>
+
 </section>
 
 
@@ -68,18 +72,7 @@
 
 <script src="js/movie-app.js"></script>
 
-<!--Added the card class and buttons for edit and delete.-->
-<!--Will need to sync those actions based off the ids given to each.-->
-
-<!--<script>-->
-<!--    $('#contain').ready(function() {-->
-<!--        $('#loading').hide();-->
-<!--    });-->
-<!--</script>-->
-
-
 <script>
-
 
     //---------------------------------------------------------------------------------------------
     //Function to populate the movies on the page:
@@ -92,16 +85,17 @@
             $('#loading').hide();
             $("#addForm").show();
             movies.forEach(({id, title, rating}) => {
-                movieHTML = `<div class="card card-style"><h1>${title}</h1><p>Rating: ${rating}</p>
-                        <span><button type="submit" data-index-number=${id} id="submit-edit" class="btn">Edit</button>
-                        <button type="submit" data-index-number=${id} id="submit-delete" class="btn">Delete</button></span></div>`;
+                movieHTML =
+                    `<div class="card card-style"><h1>${title}</h1><div class="d-flex row"><p>Rating: ${rating}</p>
+                        <div class=""><button type="submit" data-index-number=${id} id="submit-edit" class="btn btn-style">Edit</button>
+                        <button type="submit" data-index-number=${id} id="submit-delete" class="btn btn-style">Delete</button></div></div></div>`;
                 $('#contain').append(movieHTML)
             })
         })
     }
 
     populateMovies();
-//-------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
     //Adding functionality to the Delete button:
     // *** Because we are adding events to elements that only exist after the promise is returned,
     //     we have to use EVENT DELEGATION. (https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
@@ -117,9 +111,9 @@
         }
     })
 
-//-------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
     // Have to use event delegation here too
-    $(document).on("click", "#submit-edit", function (e){
+    $(document).on("click", "#submit-edit", function (e) {
         e.preventDefault();
         let movieIndex = $(this).attr("data-index-number");
         // console.log(movieIndex);
@@ -139,9 +133,9 @@
         }
     })
 
-//-------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
     // Adding functionality to the create move form:
-    $("#submit-new").click(function (e){
+    $("#submit-new").click(function (e) {
         e.preventDefault();
         let movieName = $('#new-movie').val();
         console.log(movieName);
