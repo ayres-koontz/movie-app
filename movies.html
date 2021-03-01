@@ -177,14 +177,14 @@
             movies.forEach(({id, title, rating}) => {
                 movieHTML =
                     `<div class="card card-style"><h1>${title}</h1><div class="d-flex row container"><p class="flex-grow-1 mt-1">Rating: ${rating}</p>
-                        <div><button type="submit" data-index-number=${id} id="submit-edit" class="btn btn-style" data-toggle="modal" data-target="#editModal">Edit</button>
-                        <button type="submit" data-index-number=${id} id="submit-delete" class="btn btn-style m-1" data-toggle="modal" data-target="#deleteModal">Delete</button></div></div></div>`;
+                        <div><button type="submit" data-index-number=${id} class="btn btn-style submit-edit" data-toggle="modal" data-target="#editModal">Edit</button>
+                        <button type="submit" data-index-number=${id} class="btn btn-style m-1 submit-delete" data-toggle="modal" data-target="#deleteModal">Delete</button></div></div></div>`;
                 $('#contain').append(movieHTML)
             })
-        })
+        }).then(addEditClickEvent)
     }
 
-    populateMovies();
+
     //-------------------------------------------------------------------------------------------------
     //Adding functionality to the Delete button:
     // *** Because we are adding events to elements that only exist after the promise is returned,
@@ -196,7 +196,7 @@
     //     console.log(movieIndex);
     // })
 
-    $(document).on("click", "#submit-delete", function () {
+    $(".submit-delete").click( function () {
         let movieIndex = $(this).attr("data-index-number");
         $("#submit-delete-modal").click(function () {
             deleteMovie(movieIndex).then(() => {
@@ -209,38 +209,45 @@
 
     //-------------------------------------------------------------------------------------------------
     // Have to use event delegation here too
-    $(document).on("click", "#submit-edit", function () {
-        // e.preventDefault();
-        let movieIndex = $(this).attr("data-index-number");
-        // console.log(movieIndex);
-        $("#submit-edit-modal").click(function () {
-            let newName = $("#movie-edit").val();
-            // console.log(newName);
-            let newRating = $("#rating-edit").val();
-            // console.log(newRating);
-            let editedData = {id: movieIndex, title: newName, rating: newRating}; // This is to format the user input
-            // console.log(editedData)                                            // to fit into the editMovie function
-            editMovie(editedData).then(() => {
+
+    const addEditClickEvent = () => {
+        $(".submit-edit").click(function () {
+            // e.preventDefault();
+            let movieIndex = $(this).attr("data-index-number");
+            // console.log(movieIndex);
+            console.log('random');
+            $("#submit-edit-modal").click(function () {
+                let newName = $("#movie-edit").val();
+                console.log(newName);
+                let newRating = $("#rating-edit").val();
+                // console.log(newRating);
+                let editedData = {id: movieIndex, title: newName, rating: newRating}; // This is to format the user input
+                // console.log(editedData)                                            // to fit into the editMovie function
+
+                editMovie(editedData).then(() => {
+                    $('#contain').empty();
+                    populateMovies()
+            })
+        })
+    })
+    }
+        //-------------------------------------------------------------------------------------------------
+        // Adding functionality to the create move form:
+        $("#submit-new").click(function (e) {
+            e.preventDefault();
+            let movieName = $('#new-movie').val();
+            console.log(movieName);
+            let movieRating = $("#new-rating").val();
+            console.log(movieRating);
+            let addedMovie = {title: movieName, rating: movieRating};
+            addMovie(addedMovie).then(() => {
                 $('#contain').empty();
                 populateMovies();
             });
         })
-    })
 
-    //-------------------------------------------------------------------------------------------------
-    // Adding functionality to the create move form:
-    $("#submit-new").click(function (e) {
-        e.preventDefault();
-        let movieName = $('#new-movie').val();
-        console.log(movieName);
-        let movieRating = $("#new-rating").val();
-        console.log(movieRating);
-        let addedMovie = {title: movieName, rating: movieRating};
-        addMovie(addedMovie).then(() => {
-            $('#contain').empty();
-            populateMovies();
-        });
-    })
+        populateMovies();
+
 
 </script>
 
