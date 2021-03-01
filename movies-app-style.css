@@ -26,13 +26,18 @@ p {
     color: white;
 }
 
+.modal-style {
+    color: black;
+}
+
 .title-style {
     font-family: 'Cinzel Decorative', cursive;;
     color: #CAC0C1;
     font-size: 5.5em;
     position: absolute;
     top: 45%;
-    left: 50%;
+    left: 20%;
+    text-shadow: 2px 2px black;
 }
 
 img {

@@ -34,32 +34,120 @@
 
 <section class="container">
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-style" data-toggle="modal" data-target="#exampleModal">
+    Add a new movie
+</button>
+
+<!-- Modal -->
+<div class="modal fade modal-style" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add a movie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-movie">Movie Title</label>
+                        <input type="text" class="form-control autocomplete" id="new-movie"
+                               placeholder="Movie Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-rating">Rating</label>
+                        <select class="form-control" id="new-rating">
+                            <option>5</option>
+                            <option>4</option>
+                            <option>3</option>
+                            <option>2</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id="submit-new" class="btn btn-style">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
+
+
+<!-----Movie List ----->
+<section class="container">
+
     <div id="contain"></div>
 
 </section>
 
-<section id="addForm" class="container" style="display: none">
 
-    <form>
-        <div class="form-group">
-            <label for="new-movie">Add New Movie</label>
-            <input type="text" class="form-control autocomplete" id="new-movie"
-                   placeholder="Movie Name">
+<!------ Edit Modal ------>
+<div class="modal fade modal-style" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Movie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="movie-edit">Movie Title</label>
+                        <input type="text" class="form-control autocomplete" id="movie-edit"
+                               placeholder="Movie Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="rating-edit">Rating</label>
+                        <select class="form-control" id="rating-edit">
+                            <option>5</option>
+                            <option>4</option>
+                            <option>3</option>
+                            <option>2</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id="submit-edit" class="btn btn-style">Submit Changes</button>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="new-rating">Rating</label>
-            <select class="form-control" id="new-rating">
-                <option>5</option>
-                <option>4</option>
-                <option>3</option>
-                <option>2</option>
-                <option>1</option>
-            </select>
-        </div>
-        <button type="submit" id="submit-new" class="btn btn-style">Submit</button>
-    </form>
+    </div>
+</div>
 
-</section>
+
+<!------ Delete Modal ------>
+<div class="modal fade modal-style" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Movie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this movie?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id="submit-delete" class="btn btn-style">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"
@@ -87,9 +175,9 @@
             $("#addForm").show();
             movies.forEach(({id, title, rating}) => {
                 movieHTML =
-                    `<div class="card card-style"><h1>${title}</h1><div class="d-flex row"><p>Rating: ${rating}</p>
-                        <div class=""><button type="submit" data-index-number=${id} id="submit-edit" class="btn btn-style">Edit</button>
-                        <button type="submit" data-index-number=${id} id="submit-delete" class="btn btn-style">Delete</button></div></div></div>`;
+                    `<div class="card card-style"><h1>${title}</h1><div class="d-flex row container"><p class="flex-grow-1 mt-1">Rating: ${rating}</p>
+                        <div><button type="submit" data-index-number=${id} id="submit-edit" class="btn btn-style" data-toggle="modal" data-target="#editModal">Edit</button>
+                        <button type="submit" data-index-number=${id} id="submit-delete" class="btn btn-style m-1" data-toggle="modal" data-target="#deleteModal">Delete</button></div></div></div>`;
                 $('#contain').append(movieHTML)
             })
         })
