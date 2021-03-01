@@ -36,7 +36,7 @@
 
 </section>
 <!--Added form below-->
-<section class="container">
+<section id="addForm" class="container" style="display: none">
     <form>
         <div class="form-group">
             <label for="new-movie">Add New Movie</label>
@@ -71,11 +71,11 @@
 <!--Added the card class and buttons for edit and delete.-->
 <!--Will need to sync those actions based off the ids given to each.-->
 
-<script>
-    $('#contain').ready(function() {
-        $('#loading').hide();
-    });
-</script>
+<!--<script>-->
+<!--    $('#contain').ready(function() {-->
+<!--        $('#loading').hide();-->
+<!--    });-->
+<!--</script>-->
 
 
 <script>
@@ -89,6 +89,8 @@
     function populateMovies() {
         getMovies().then((movies) => {
             let movieHTML = '';
+            $('#loading').hide();
+            $("#addForm").show();
             movies.forEach(({id, title, rating}) => {
                 movieHTML = `<div class="card card-style"><h1>${title}</h1><p>Rating: ${rating}</p>
                         <span><button type="submit" data-index-number=${id} id="submit-edit" class="btn">Edit</button>
