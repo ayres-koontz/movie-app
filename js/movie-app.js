@@ -1,6 +1,7 @@
 "use strict"
 
 const url = 'https://pickle-dog-freeze.glitch.me/movies'
+// const TMDBURL = `https://api.themoviedb.org/3/movie/550?api_key=${tmdbURL}`
 
 // Get all movies -------------------------------------------------
 
@@ -66,3 +67,4 @@ const deleteMovie = id => fetch(`${url}/${id}`, {
 
 
 //----------------------------------------------------------------
+//Getting movie poster from TMDB:
