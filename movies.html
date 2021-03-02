@@ -21,7 +21,7 @@
 
 <header class="container">
 
-    <div class="brand-img">
+    <div class="brand-img d-none d-lg-block d-md-none">
         <div class="branding">
             <img src="img/pexels-adrien-olichon-3709370.jpg" alt="Movie Theater">
         </div>
@@ -30,23 +30,33 @@
         </div>
     </div>
 
+    <!--    Response small-->
+    <div class="brand-img-sm d-block d-lg-none">
+        <div class="branding">
+            <img src="img/pexels-adrien-olichon-3709370.jpg" alt="Movie Theater">
+        </div>
+        <div>
+            <h2 class="title-style-sm">Cinema Critic</h2>
+        </div>
+    </div>
+
 </header>
 
 <section class="container">
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-style" data-toggle="modal" data-target="#exampleModal">
+    <button type="button" class="btn btn-style" data-toggle="modal" data-target="#addModal">
         Add a new movie
     </button>
 
-    <!-- Modal -->
-    <div class="modal fade modal-style" id="exampleModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel"
+    <!-- Add Movie Modal -->
+    <div class="modal fade modal-style" id="addModal" tabindex="-1" role="dialog"
+         aria-labelledby="addModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add a movie</h5>
+                    <h5 class="modal-title" id="addModalLabel">Add a movie</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -90,7 +100,7 @@
 
 
 <!------ Edit Modal ------>
-<div class="modal fade modal-style" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade modal-style" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -129,7 +139,7 @@
 
 
 <!------ Delete Modal ------>
-<div class="modal fade modal-style" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade modal-style" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -160,7 +170,6 @@
         crossorigin="anonymous"></script>
 
 <script src="js/movie-app.js"></script>
-<!--<script src="js/keys.js"></script>-->
 
 <script>
 
@@ -176,7 +185,7 @@
             $("#addForm").show();
             movies.forEach(({id, title, rating}) => {
                 movieHTML =
-                    `<div class="card card-style"><h1>${title}</h1><div class="d-flex row container"><p class="flex-grow-1 mt-1">Rating: ${rating}</p>
+                    `<div class="card card-style card-color"><h1>${title}</h1><div class="d-flex row container"><p class="flex-grow-1 mt-1">Rating: ${rating}</p>
                         <div><button type="submit" data-index-number=${id} class="btn btn-style submit-edit" data-toggle="modal" data-target="#editModal">Edit</button>
                         <button type="submit" data-index-number=${id} class="btn btn-style m-1 submit-delete" data-toggle="modal" data-target="#deleteModal">Delete</button></div></div></div>`;
                 $('#contain').append(movieHTML)
@@ -193,24 +202,20 @@
     // *** Because we are adding events to elements that only exist after the promise is returned,
     //     we have to use EVENT DELEGATION. (https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
 
+    const addDeleteClickEvent = () => {
+        $(".submit-delete").click(function () {
+            let movieIndex = $(this).attr("data-index-number");
+            $("#submit-delete-modal").off();
+            $("#submit-delete-modal").click(function () {
+                deleteMovie(movieIndex).then(() => {
+                    $('#contain').empty();// Empties out the contain div so it can be repopulated
+                    populateMovies();//repopulates the contain div
+                });
 
-    // $("#submit-delete-modal").click(function(){
-    //     let movieIndex = $(this).attr("data-index-number");
-    //     console.log(movieIndex);
-    // })
-const addDeleteClickEvent = () => {
-    $(".submit-delete").click(function () {
-        let movieIndex = $(this).attr("data-index-number");
-        $("#submit-delete-modal").off();
-        $("#submit-delete-modal").click(function () {
-            deleteMovie(movieIndex).then(() => {
-                $('#contain').empty();// Empties out the contain div so it can be repopulated
-                populateMovies();//repopulates the contain div
             });
-
         });
-    });
-}
+    }
+
     //-------------------------------------------------------------------------------------------------
     // Have to use event delegation here too
 
@@ -232,26 +237,27 @@ const addDeleteClickEvent = () => {
                 editMovie(editedData).then(() => {
                     $('#contain').empty();
                     populateMovies()
+                })
             })
         })
-    })
     }
-        //-------------------------------------------------------------------------------------------------
-        // Adding functionality to the create move form:
-        $("#submit-new").click(function (e) {
-            e.preventDefault();
-            let movieName = $('#new-movie').val();
-            console.log(movieName);
-            let movieRating = $("#new-rating").val();
-            console.log(movieRating);
-            let addedMovie = {title: movieName, rating: movieRating};
-            addMovie(addedMovie).then(() => {
-                $('#contain').empty();
-                populateMovies();
-            });
-        })
 
-        populateMovies();
+    //-------------------------------------------------------------------------------------------------
+    // Adding functionality to the create move form:
+    $("#submit-new").click(function (e) {
+        e.preventDefault();
+        let movieName = $('#new-movie').val();
+        console.log(movieName);
+        let movieRating = $("#new-rating").val();
+        console.log(movieRating);
+        let addedMovie = {title: movieName, rating: movieRating};
+        addMovie(addedMovie).then(() => {
+            $('#contain').empty();
+            populateMovies();
+        });
+    })
+
+    populateMovies();
 
 
 </script>
