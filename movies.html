@@ -92,6 +92,7 @@
 
 
 <!-----Movie List ----->
+
 <section class="container">
 
     <div id="contain"></div>
@@ -173,8 +174,8 @@
 
 <script>
 
-    //---------------------------------------------------------------------------------------------
-    //Function to populate the movies on the page:
+    // TODO:    Populate the list of movies --------------------------------------------------------------------------------------------
+
     // ** Added a data-index-number that gets its value from
     //    the movie id so that we can bind it to the delete function.
 
@@ -183,24 +184,26 @@
             let movieHTML = '';
             $('#loading').hide();
             $("#addForm").show();
-            movies.forEach(({id, title, rating}) => {
+            movies.forEach(({id, title, rating}) => {  //Object Deconstruction
                 movieHTML =
                     `<div class="card card-style card-color"><h1>${title}</h1><div class="d-flex row container"><p class="flex-grow-1 mt-1">Rating: ${rating}</p>
                         <div><button type="submit" data-index-number=${id} class="btn btn-style submit-edit" data-toggle="modal" data-target="#editModal">Edit</button>
                         <button type="submit" data-index-number=${id} class="btn btn-style m-1 submit-delete" data-toggle="modal" data-target="#deleteModal">Delete</button></div></div></div>`;
-                $('#contain').append(movieHTML)
-            })
+                $('#contain').append(movieHTML);
+            });
         }).then(() => {
-            addEditClickEvent()
-            addDeleteClickEvent()
+            addEditClickEvent();
+            addDeleteClickEvent();
         });
     }
 
 
-    //-------------------------------------------------------------------------------------------------
+    // TODO:    Delete Button -----------------------------------------------------------------------------------------------------------
+
     //Adding functionality to the Delete button:
     // *** Because we are adding events to elements that only exist after the promise is returned,
     //     we have to use EVENT DELEGATION. (https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements)
+    //     Example: $(document).on("click", "#submit-delete", function () { ...
 
     const addDeleteClickEvent = () => {
         $(".submit-delete").click(function () {
@@ -208,33 +211,28 @@
             $("#submit-delete-modal").off();
             $("#submit-delete-modal").click(function () {
                 deleteMovie(movieIndex).then(() => {
-                    $('#contain').empty();// Empties out the contain div so it can be repopulated
-                    populateMovies();//repopulates the contain div
+                    $('#contain').empty();// Empties out div.contain children so it can be repopulated
+                    populateMovies();//repopulates div.contain
                 });
-
             });
         });
     }
 
-    //-------------------------------------------------------------------------------------------------
+    // TODO:    Edit Button -------------------------------------------------------------------------------------------------------
+
     // Have to use event delegation here too
 
     const addEditClickEvent = () => {
         $(".submit-edit").click(function () {
-            // e.preventDefault();
             let movieIndex = $(this).attr("data-index-number");
-            // console.log(movieIndex);
             console.log('random');
             $("#submit-edit-modal").off()
             $("#submit-edit-modal").click(function () {
                 let newName = $("#movie-edit").val();
                 console.log(newName);
                 let newRating = $("#rating-edit").val();
-                // console.log(newRating);
                 let editedData = {id: movieIndex, title: newName, rating: newRating}; // This is to format the user input
-                // console.log(editedData)                                            // to fit into the editMovie function
-
-                editMovie(editedData).then(() => {
+                editMovie(editedData).then(() => {                                    // to fit into the editMovie function
                     $('#contain').empty();
                     populateMovies()
                 })
@@ -242,8 +240,10 @@
         })
     }
 
-    //-------------------------------------------------------------------------------------------------
-    // Adding functionality to the create move form:
+    // TODO:    Create a Movie modal form -----------------------------------------------------------------------------------------
+
+    // Adding functionality to the create movie modal form:
+
     $("#submit-new").click(function (e) {
         e.preventDefault();
         let movieName = $('#new-movie').val();
@@ -256,6 +256,9 @@
             populateMovies();
         });
     })
+
+
+    // Calling populateMovies to initialize the list of movies on the response of the fetch
 
     populateMovies();
 
