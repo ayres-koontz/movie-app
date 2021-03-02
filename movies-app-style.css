@@ -5,7 +5,6 @@ body {
     background-color: #29362F;
 }
 
-
 h1 {
     color: #2A2B2A;
     font-family: 'Raleway', sans-serif;
@@ -26,6 +25,11 @@ p {
     color: white;
 }
 
+.card-color {
+    /*background-color: #CAC0C1;*/
+    border: 2px solid #884004;
+}
+
 .modal-style {
     color: black;
 }
@@ -35,8 +39,20 @@ p {
     color: #CAC0C1;
     font-size: 5.5em;
     position: absolute;
+    display: inline-block;
     top: 45%;
     left: 20%;
+    text-shadow: 2px 2px black;
+}
+
+.title-style-sm {
+    font-family: 'Cinzel Decorative', cursive;;
+    color: #CAC0C1;
+    font-size: 4em;
+    position: absolute;
+    display: inline-block;
+    top: 30%;
+    left: 5%;
     text-shadow: 2px 2px black;
 }
 
@@ -53,6 +69,15 @@ img {
     margin-top: 50px;
     height: 350px;
     margin-bottom: 100px;
+}
+
+.brand-img-sm {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+    height: 350px;
+    margin-bottom: 20px;
 }
 
 .branding {
